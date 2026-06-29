@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoho Social Analytics vs Hootsuite, Sprout Social & Buffer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green:#0d6e5c; --green-deep:#094b3f; --green-light:#e4f2ec; --green-mid:#c2e0d3;
+  --ink:#111c19; --ink-mid:#3d524c; --ink-soft:#6b7e78;
+  --paper:#ffffff; --surface:#f7f9f8; --line:#d3ddd9; --line-light:#e8eeeb;
+  --gold:#9e6f1c; --gold-bg:#fdf5e6; --red:#b04040;
+  --display:'Space Grotesk',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:15px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink);display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:28px;height:28px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-size:13px;font-weight:500;color:var(--ink-mid);text-decoration:none}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{background:var(--green);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-family:var(--body);font-weight:600;font-size:13.5px;cursor:pointer;text-decoration:none}
+.nav-cta:hover{background:var(--green-deep)}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* LAYOUT */
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+
+/* HERO */
+.hero{padding:80px 0 64px;border-bottom:1px solid var(--line)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--green-light);padding:5px 13px;border-radius:999px;margin-bottom:26px}
+.hero h1{font-family:var(--display);font-size:clamp(32px,5vw,54px);font-weight:700;line-height:1.06;letter-spacing:-.025em;max-width:18ch}
+.hero h1 strong{color:var(--green)}
+.hero-sub{font-size:17px;color:var(--ink-mid);max-width:58ch;margin:20px 0 34px;line-height:1.7}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:52px}
+.btn-p{background:var(--green);color:#fff;border:none;border-radius:9px;padding:13px 22px;font-family:var(--body);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-p:hover{background:var(--green-deep)}
+.btn-o{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:9px;padding:12px 22px;font-family:var(--body);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-o:hover{background:var(--green-light)}
+
+/* SCORE STRIP */
+.score-strip{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--line);border-radius:14px;overflow:hidden}
+.score-cell{padding:22px 20px;border-right:1px solid var(--line)}
+.score-cell:last-child{border-right:none}
+.score-cell.lead{background:var(--green)}
+.sc-tool{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.score-cell.lead .sc-tool{color:rgba(255,255,255,.72)}
+.sc-num{font-family:var(--display);font-size:46px;font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--ink)}
+.score-cell.lead .sc-num{color:#fff}
+.sc-label{font-size:13px;color:var(--ink-soft);margin-top:6px}
+.score-cell.lead .sc-label{color:rgba(255,255,255,.7)}
+@media(max-width:640px){.score-strip{grid-template-columns:1fr 1fr}.score-cell{border-bottom:1px solid var(--line)}}
+
+/* SECTIONS */
+.section{padding:72px 0;border-bottom:1px solid var(--line)}
+.section.alt{background:var(--surface)}
+.sec-tag{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.section h2{font-family:var(--display);font-size:clamp(24px,3.2vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin-bottom:16px}
+.sec-intro{font-size:15.5px;color:var(--ink-mid);max-width:68ch;line-height:1.75;margin-bottom:28px}
+.sec-intro strong{color:var(--ink);font-weight:600}
+.sec-intro+.sec-intro{margin-top:-12px}
+
+/* SUB HEADING */
+.sub-h{font-family:var(--display);font-size:16.5px;font-weight:600;color:var(--ink);margin:40px 0 14px;display:flex;align-items:center;gap:10px}
+.sub-h::before{content:'';display:block;width:4px;height:18px;background:var(--green);border-radius:2px;flex-shrink:0}
+
+/* TABLE */
+.t-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:28px;border-radius:12px;border:1px solid var(--line)}
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+table.cmp thead tr{background:var(--ink)}
+table.cmp thead th{padding:13px 15px;text-align:left;font-family:var(--display);font-size:12px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:uppercase}
+table.cmp thead th.zh{background:var(--green);color:#fff}
+table.cmp tbody tr{border-bottom:1px solid var(--line-light)}
+table.cmp tbody tr:last-child{border-bottom:none}
+table.cmp tbody td{padding:12px 15px;vertical-align:top;line-height:1.5;color:var(--ink-mid)}
+table.cmp tbody td.feat{font-weight:600;color:var(--ink);font-size:13px}
+table.cmp tbody td.zcol{background:var(--green-light)}
+table.cmp tbody tr:hover td{background:var(--surface)}
+table.cmp tbody tr:hover td.zcol{background:#d4ecdf}
+
+/* STATUS */
+.yes{color:#0a5446;font-weight:600}
+.excl{color:#0a5446;font-weight:700}
+.excl::before{content:'★ ';font-size:10px}
+.no{color:var(--red)}
+.part{color:var(--gold)}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.chip{font-size:13px;font-weight:500;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink-mid)}
+.chip.e{border-color:var(--green);background:var(--green-light);color:var(--green-deep);font-weight:600}
+
+/* EXCLUSIVE GRID */
+.excl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.excl-card{background:var(--green-deep);border-radius:12px;padding:22px 22px 24px}
+.excl-badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#7fd3bc;color:var(--green-deep);padding:4px 9px;border-radius:5px;margin-bottom:14px}
+.excl-card h4{font-family:var(--display);font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.3}
+.excl-card p{font-size:13.5px;color:rgba(255,255,255,.72);line-height:1.6}
+@media(max-width:820px){.excl-grid{grid-template-columns:1fr}}
+
+/* CALLOUT */
+.callout{background:var(--gold-bg);border:1px solid #e8d5a3;border-left:4px solid var(--gold);border-radius:10px;padding:16px 20px;font-size:13.5px;color:#5c4010;line-height:1.65;margin:6px 0 24px}
+.callout strong{color:#3a2808}
+
+/* KV GRID */
+.kv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0 28px}
+.kv{background:var(--surface);border:1px solid var(--line-light);border-radius:10px;padding:16px 18px}
+.kv .k{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.kv .v{font-size:15px;color:var(--ink);font-weight:500}
+.kv .v.good{color:var(--green-deep)}
+.kv .v.bad{color:var(--red)}
+@media(max-width:640px){.kv-grid{grid-template-columns:1fr}}
+
+/* DARK BAND */
+.dark-band{background:var(--ink);padding:80px 0}
+.dark-band .sec-tag{color:#7fd3bc}
+.dark-band h2{font-family:var(--display);font-size:clamp(26px,3.5vw,38px);font-weight:700;letter-spacing:-.02em;color:#fff;margin-bottom:14px}
+.dark-band .sec-intro{color:rgba(255,255,255,.68);max-width:58ch}
+
+/* CTA FOOTER */
+.cta-band{background:var(--green);padding:80px 0;text-align:center}
+.cta-band h2{font-family:var(--display);font-size:clamp(26px,4vw,42px);font-weight:700;color:#fff;letter-spacing:-.02em;margin-bottom:14px}
+.cta-band p{font-size:17px;color:rgba(255,255,255,.82);max-width:48ch;margin:0 auto 30px;line-height:1.65}
+.btn-white{background:#fff;color:var(--green-deep);border:none;border-radius:9px;padding:14px 26px;font-family:var(--body);font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-white:hover{background:var(--surface)}
+
+footer.site{padding:30px 28px;text-align:center;font-size:12.5px;color:var(--ink-soft);border-top:1px solid var(--line)}
+
+/* ANIMATION */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 16 16"><polyline points="2,11 6,6 10,9 14,3"/></svg></span>
+      Zoho Social
+    </a>
+    <nav class="nav-links">
+      <a href="#coverage">Platforms</a>
+      <a href="#post-metrics">Post metrics</a>
+      <a href="#data">Data &amp; history</a>
+      <a href="#demographics">Demographics</a>
+      <a href="#sentiment">Sentiment</a>
+      <a href="#reports">Reports</a>
+      <a href="#free-plan">Free plan</a>
+    </nav>
+    <a href="#cta" class="nav-cta">Start free trial</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Analytics comparison · 2026</p>
+    <h1>More platforms. Deeper metrics. <strong>Built-in intelligence.</strong></h1>
+    <p class="hero-sub">A feature-by-feature breakdown of social media analytics across Zoho Social, Hootsuite, Sprout Social, and Buffer — platform coverage, post metrics, data freshness, sentiment, reporting, and more.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-p">Start your free trial</a>
+      <a href="#coverage" class="btn-o">See the comparison</a>
+    </div>
+    <div class="score-strip">
+      <div class="score-cell lead">
+        <div class="sc-tool">Zoho Social</div>
+        <div class="sc-num">11</div>
+        <div class="sc-label">platforms with analytics</div>
+      </div>
+      <div class="score-cell">
+        <div class="sc-tool">Sprout Social</div>
+        <div class="sc-num">9</div>
+        <div class="sc-label">platforms with analytics</div>
+      </div>
+      <div class="score-cell">
+        <div class="sc-tool">Hootsuite</div>
+        <div class="sc-num">7</div>
+        <div class="sc-label">platforms with analytics</div>
+      </div>
+      <div class="score-cell">
+        <div class="sc-tool">Buffer</div>
+        <div class="sc-num">4</div>
+        <div class="sc-label">platforms with analytics</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 PLATFORM COVERAGE -->
+<section class="section" id="coverage">
+  <div class="wrap reveal">
+    <p class="sec-tag">01 — Platform coverage</p>
+    <h2>Analytics across the widest network range</h2>
+    <p class="sec-intro">Zoho Social provides analytics for <strong>11 platforms</strong> — more than any tool in this comparison. The biggest gaps in competing tools: <strong>Google Business Profile</strong> is unsupported by Hootsuite, Sprout Social, and Buffer; <strong>Mastodon</strong> analytics are exclusive to Zoho Social. Bluesky is available in Zoho Social and Sprout Social, but not in Hootsuite or Buffer. On the core four — X, Instagram, Facebook, and LinkedIn — all tools are on equal footing. All four tools explicitly do not support WhatsApp, Telegram, Instagram Personal, Facebook Groups, or LinkedIn Personal for analytics.</p>
+    <p class="sec-intro">Buffer's analytics scope is the most limited: TikTok, YouTube, Threads, Pinterest, Mastodon, and Bluesky are all absent. Its full Analyze dashboard is also restricted to paid plans — free users get a basic "Sent" tab only.</p>
+
+    <p style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;">Analytics available only in Zoho Social</p>
+    <div class="chips">
+      <span class="chip e">Google Business Profile</span>
+      <span class="chip e">Mastodon</span>
+      <span class="chip">Bluesky (also Sprout Social)</span>
+    </div>
+
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:24%">Platform</th>
+            <th class="zh" style="width:19%">Zoho Social</th>
+            <th style="width:19%">Sprout Social</th>
+            <th style="width:19%">Hootsuite</th>
+            <th style="width:19%">Buffer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">X (Twitter)</td><td class="zcol yes">Yes (Free plan)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Instagram Business</td><td class="zcol yes">Yes (Free plan)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Facebook Pages</td><td class="zcol yes">Yes (Free plan)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">LinkedIn Company</td><td class="zcol yes">Yes (Free plan)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Google Business Profile</td><td class="zcol excl">Yes (Free plan)</td><td class="no">Not supported</td><td class="no">Not supported</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">Pinterest</td><td class="zcol yes">Yes (Standard+)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">TikTok</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">YouTube</td><td class="zcol yes">Yes (Standard+)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">Threads</td><td class="zcol yes">Yes (Standard+)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">Bluesky</td><td class="zcol yes">Yes (Standard+)</td><td class="yes">Yes</td><td class="no">Not supported</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">Mastodon</td><td class="zcol excl">Yes (Standard+)</td><td class="no">Not supported</td><td class="no">Not supported</td><td class="no">Not supported</td></tr>
+          <tr><td class="feat">Reddit</td><td class="zcol no">Not supported</td><td class="yes">Yes</td><td class="no">Not supported</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 02 POST METRICS -->
+<section class="section alt" id="post-metrics">
+  <div class="wrap reveal">
+    <p class="sec-tag">02 — Post performance metrics</p>
+    <h2>Deeper post-level data on every network</h2>
+    <p class="sec-intro">Across all four networks, every tool covers the fundamentals — reactions, comments, shares, likes, and engagement rates. The differences emerge in the edge metrics that reveal true content performance. Zoho Social is the only tool that reports <strong>viral impressions</strong>, <strong>engaged fans</strong>, and <strong>unique impressions</strong> for Facebook posts. For X threads, all tools except Buffer report full thread metrics — Buffer tracks the first post only. For LinkedIn, Zoho Social and Sprout Social both support analytics for personal profile posts; Hootsuite and Buffer do not.</p>
+
+    <div class="sub-h">Facebook post metrics</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Metric</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Reactions</td><td class="zcol yes">Individual + total (Like, Love, Wow, Haha, Angry, Sorry)</td><td>Total only; individual breakdown in CSV export</td><td>Tracked; no individual breakdown documented</td><td>Total count only</td></tr>
+          <tr><td class="feat">Comments &amp; shares</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Clicks (link / photo / other)</td><td class="zcol yes">All three tracked</td><td>Link clicks + other clicks (no photo breakdown)</td><td>Tracked; no type breakdown documented</td><td class="no">Not available — Meta API removed this data</td></tr>
+          <tr><td class="feat">Post impressions</td><td class="zcol yes">Yes</td><td>Total, organic, and paid</td><td class="yes">Yes</td><td class="no">Organic removed by Meta API; paid only</td></tr>
+          <tr><td class="feat">Unique impressions</td><td class="zcol excl">Yes — exclusive to Zoho</td><td class="no">Not available</td><td class="no">Not available</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Viral impressions</td><td class="zcol excl">Yes — exclusive to Zoho</td><td class="no">Not available</td><td class="no">Not available</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Engaged users (post-level)</td><td class="zcol yes">Yes</td><td class="no">Not available</td><td class="part">Page-level daily only — not per post</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Engaged fans</td><td class="zcol excl">Yes — exclusive to Zoho</td><td class="no">Not available</td><td class="no">Not available</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Negative feedback (hides / spam)</td><td class="zcol yes">Yes — with full breakdown</td><td class="yes">Yes</td><td>Yes (rate-based; no raw count breakdown)</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Video views (3s / 10s / 30s)</td><td class="zcol yes">All three thresholds + autoplay, sound-on, unique views</td><td>3s+, partial (3–30s), and full views (organic/paid variants)</td><td class="yes">Reported</td><td class="no">Not documented</td></tr>
+          <tr><td class="feat">Paid impressions &amp; reach</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-h">Instagram post metrics</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Metric</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Impressions, reach, likes, comments, saves, shares</td><td class="zcol yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td></tr>
+          <tr><td class="feat">Engagement rate</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Reels analytics</td><td class="zcol yes">Plays, reach, impressions, likes, comments, shares, saves</td><td>Skip rate, repost, crossposted Reels views, Facebook Reels views (Mar 2026)</td><td class="yes">Full Reels metrics</td><td class="part">Limited — no audience retention or watch-time analysis</td></tr>
+          <tr><td class="feat">Stories analytics</td><td class="zcol yes">Impressions, reach, replies, exits, taps, navigation</td><td>Impressions, reach, taps forward/back, exits, replies, completion rate (organic only)</td><td class="yes">Full Stories metrics</td><td class="yes">Impressions, reach, replies, taps, exits</td></tr>
+          <tr><td class="feat">Hashtag performance</td><td class="zcol yes">Dedicated hashtag analytics</td><td>Most used + Hashtags by Lifetime Engagements</td><td class="yes">Supported</td><td class="part">Trending hashtags only — no dedicated analytics</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-h">LinkedIn post metrics</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Metric</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Impressions, likes, comments, clicks, shares</td><td class="zcol yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td></tr>
+          <tr><td class="feat">Reach</td><td class="zcol yes">Yes</td><td class="no">Not available (LinkedIn API limitation)</td><td class="part">Page-level; post-level limited by LinkedIn API</td><td class="part">Average impressions only — API doesn't expose reach</td></tr>
+          <tr><td class="feat">Video views / unique views</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="part">Personal profiles only</td></tr>
+          <tr><td class="feat">Reposts</td><td class="zcol no">Not available (LinkedIn API limitation)</td><td class="no">Not documented</td><td class="no">Not documented</td><td class="no">Not documented</td></tr>
+          <tr><td class="feat">Personal profile post stats</td><td class="zcol yes">Supported</td><td class="yes">Supported</td><td class="no">Not supported</td><td class="yes">Supported</td></tr>
+          <tr><td class="feat">Sponsored post metrics</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-h">X (Twitter) post metrics</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Metric</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Impressions, likes, reposts, replies, link clicks, profile clicks</td><td class="zcol yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td></tr>
+          <tr><td class="feat">Engagement rate</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Thread post metrics</td><td class="zcol yes">Full thread analytics</td><td class="yes">Full thread analytics</td><td class="yes">Full thread analytics</td><td class="part">First post in thread only</td></tr>
+          <tr><td class="feat">Post data retention</td><td class="zcol">30 days (post-level)</td><td>No stated cutoff</td><td class="part">Stops after ~1 month</td><td class="no">Stops after 20 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 03 DATA FRESHNESS & HISTORY -->
+<section class="section" id="data">
+  <div class="wrap reveal">
+    <p class="sec-tag">03 — Data freshness &amp; historical data</p>
+    <h2>Real-time updates and historical depth</h2>
+    <p class="sec-intro">Zoho Social updates analytics in real time. Sprout Social applies platform-dependent delays (Facebook demographics lag 48–72 hours). Hootsuite refreshes every few minutes but Facebook reports only update once daily. Buffer applies up to a 24-hour delay for most networks (6 hours for boosted posts). LinkedIn data refreshes after 24 hours across all four tools — a LinkedIn API constraint, not a platform-level choice.</p>
+    <p class="sec-intro">On historical depth, <strong>Hootsuite offers the most breadth</strong> — data backfilled to January 1, 2018 across networks, with Instagram audience and Stories backfill on connect. Buffer provides meaningful backfill on connect: 6 months for Facebook and LinkedIn channel-level, 30 days for Instagram posts. Zoho Social and Sprout Social largely start from the connection date, with Sprout providing up to 2 years of Instagram data as an exception.</p>
+
+    <div class="sub-h">Data freshness</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Network / Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Real-time data</td><td class="zcol yes">Yes</td><td class="part">Platform-dependent delays</td><td class="part">Every few minutes</td><td class="no">Up to 24h delay (6h for boosted posts)</td></tr>
+          <tr><td class="feat">Instagram freshness</td><td class="zcol yes">Real-time</td><td class="part">Demographics lag 48–72h</td><td class="no">Up to 64h</td><td>Up to 24h</td></tr>
+          <tr><td class="feat">LinkedIn refresh</td><td class="zcol yes">Real-time</td><td>24-hour standard</td><td>Daily</td><td>Daily</td></tr>
+          <tr><td class="feat">Facebook post update window</td><td class="zcol yes">No stated cutoff</td><td>Lifetime</td><td class="no">Stops after 31 days</td><td class="no">Stops after 1 calendar month</td></tr>
+          <tr><td class="feat">X post update window</td><td class="zcol">30 days (post-level)</td><td>Lifetime</td><td class="no">Stops after 31 days</td><td class="no">Stops after 20 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-h">Historical data on connect</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Network</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Facebook (channel-level)</td><td class="zcol yes">Yes</td><td class="no">From connection date</td><td class="yes">Yes</td><td>6 months</td></tr>
+          <tr><td class="feat">Facebook (post-level backfill)</td><td class="zcol no">No</td><td class="no">From connection date</td><td class="yes">Yes</td><td>50 posts</td></tr>
+          <tr><td class="feat">Instagram</td><td class="zcol no">No</td><td>Up to 2 years (most metrics)</td><td class="yes">Yes (+ audience &amp; Stories backfill)</td><td>30 days, posts only</td></tr>
+          <tr><td class="feat">X (Twitter)</td><td class="zcol no">No</td><td class="no">From connection date</td><td class="yes">Yes</td><td>Up to 100 posts / 30 days</td></tr>
+          <tr><td class="feat">LinkedIn</td><td class="zcol no">No</td><td class="no">From connection date</td><td class="yes">Yes</td><td>6 months channel; 30 days posts</td></tr>
+          <tr><td class="feat">Pinterest</td><td class="zcol no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td>250 pins / 1,000 boards</td></tr>
+          <tr><td class="feat">Paid plan post history depth</td><td class="zcol">From connection date</td><td>~2 years (IG); others from connection date</td><td class="yes">From Jan 1, 2018</td><td>Up to 2 years</td></tr>
+          <tr><td class="feat">Year-over-year comparison</td><td class="zcol no">Not supported</td><td class="yes">Yes (custom date ranges)</td><td class="yes">Yes (data from Jan 2018)</td><td class="part">After 1+ year of Buffer usage only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 04 AUDIENCE DEMOGRAPHICS -->
+<section class="section alt" id="demographics">
+  <div class="wrap reveal">
+    <p class="sec-tag">04 — Audience demographics</p>
+    <h2>Know exactly who you're reaching</h2>
+    <p class="sec-intro">Zoho Social covers audience demographics across <strong>five platforms</strong> — Facebook, Instagram, LinkedIn, YouTube, and Pinterest. Its LinkedIn breakdown is the deepest available in this comparison: industry, job function, seniority, company size, experience level, and location. Hootsuite covers the widest set of platforms for demographics, adding TikTok and X to the mix. Sprout Social covers Facebook, Instagram, and LinkedIn. Buffer is most limited — full demographics only for Instagram, and location only for Facebook.</p>
+
+    <div class="callout"><strong>Important on Facebook demographics:</strong> Meta deprecated age and gender audience data across its API on November 15, 2025. All four tools now show follower count and location only for Facebook — this is a Meta API change, not a platform choice. Claims in page copy should focus on LinkedIn, Instagram, and YouTube demographics.</div>
+
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Platforms with demographics</td><td class="zcol">FB, IG, LinkedIn, YouTube, Pinterest</td><td>FB, IG, LinkedIn</td><td class="yes">FB, IG, LinkedIn, TikTok, X, YouTube</td><td class="part">IG fully; FB location only</td></tr>
+          <tr><td class="feat">LinkedIn breakdown depth</td><td class="zcol excl">Industry, job function, seniority, company size, experience, location</td><td>Seniority level + job function</td><td>B2B audience insights (seniority, function, industry)</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Instagram demographics</td><td class="zcol yes">Age, gender, country, language</td><td>Age, gender, location (100+ followers required)</td><td>Age, gender, location</td><td>Age, gender, top cities, countries</td></tr>
+          <tr><td class="feat">YouTube subscriber demographics</td><td class="zcol yes">Age, gender, geography, watch time, subscribers</td><td class="yes">Supported</td><td class="yes">Supported</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Pinterest audience demographics</td><td class="zcol yes">Interests, age, gender, location</td><td>—</td><td>—</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">TikTok audience demographics</td><td class="zcol no">Not available</td><td class="no">Not available</td><td class="yes">Yes</td><td class="no">Not available</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATORS BAND -->
+<section class="dark-band">
+  <div class="wrap reveal">
+    <p class="sec-tag">The differentiators</p>
+    <h2>What you only get with Zoho Social</h2>
+    <p class="sec-intro">Features that are either unique to Zoho Social or available at a significantly lower plan tier than the alternatives.</p>
+    <div class="excl-grid" style="margin-top:32px">
+      <div class="excl-card">
+        <span class="excl-badge">Only in Zoho</span>
+        <h4>Google Business Profile &amp; Mastodon analytics</h4>
+        <p>The only tool in this comparison that reports on GMB performance. Mastodon analytics are also exclusive — Hootsuite, Sprout, and Buffer don't support either network.</p>
+      </div>
+      <div class="excl-card">
+        <span class="excl-badge">Only in Zoho</span>
+        <h4>Facebook viral impressions &amp; engaged-fan metrics</h4>
+        <p>Viral impressions (reach from friends' interactions) and engaged fans are reported only by Zoho Social — true reach signals the others omit entirely.</p>
+      </div>
+      <div class="excl-card">
+        <span class="excl-badge">Only in Zoho</span>
+        <h4>Drag-and-drop custom dashboard builder</h4>
+        <p>Build and rearrange your analytics layout visually. Hootsuite offers a metrics library; Sprout fixes standard report layouts; Buffer has no builder at all.</p>
+      </div>
+      <div class="excl-card">
+        <span class="excl-badge">Built-in — no add-on</span>
+        <h4>Listening, sentiment &amp; competitor benchmarking</h4>
+        <p>Sprout gates sentiment behind its Advanced plan + Listening add-on. Hootsuite tiers Talkwalker into enterprise plans. Buffer offers none. Zoho includes all three.</p>
+      </div>
+      <div class="excl-card">
+        <span class="excl-badge">Built-in — no add-on</span>
+        <h4>SmartQ best-time-to-post across all networks</h4>
+        <p>Data-driven publishing time recommendations for every supported network. Buffer's best-time feature is Instagram-only and requires professional accounts with 100+ followers.</p>
+      </div>
+      <div class="excl-card">
+        <span class="excl-badge">Ecosystem</span>
+        <h4>Native CRM &amp; helpdesk integration</h4>
+        <p>Turn social mentions into Zoho CRM leads and Zoho Desk tickets natively. Competitors rely on Salesforce or HubSpot third-party integrations. Buffer has no CRM integration.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 ORGANIC VS PAID -->
+<section class="section" id="organic-paid">
+  <div class="wrap reveal">
+    <p class="sec-tag">05 — Organic vs paid analytics</p>
+    <h2>Separate what you earned from what you spent</h2>
+    <p class="sec-intro">All four tools report paid impressions and reach for Facebook and LinkedIn. The split becomes more nuanced at the organic level. For Facebook, Buffer cannot report organic impressions at all — Meta's API removed that data. Zoho Social is unique in reporting <strong>viral vs. non-viral views</strong> for Facebook. For LinkedIn, Zoho Social provides a dedicated organic-vs-sponsored follower chart from standard plans; Sprout Social requires Premium Analytics, and Hootsuite requires Advanced Analytics.</p>
+    <p class="sec-intro">For X, Pinterest, YouTube, TikTok, GMB, Threads, Mastodon, and Bluesky: all four tools report organic metrics only. These networks either have no paid model or their APIs do not expose paid performance data.</p>
+
+    <div class="sub-h">Facebook organic vs paid</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Metric</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Organic vs paid views / reach</td><td class="zcol yes">Yes</td><td>Filter by organic/paid impressions</td><td class="yes">Yes</td><td class="no">Organic removed by Meta API</td></tr>
+          <tr><td class="feat">Viral vs non-viral views</td><td class="zcol excl">Yes — exclusive to Zoho</td><td class="no">Not available</td><td class="no">Not available</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Organic impressions</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Removed by Meta API</td></tr>
+          <tr><td class="feat">Paid impressions, reach &amp; link clicks</td><td class="zcol yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td><td class="yes">All reported</td></tr>
+          <tr><td class="feat">Boosted post organic vs paid chart</td><td class="zcol yes">Visual bar chart</td><td class="part">Filter on all plans; visual widget = Premium Analytics only</td><td class="yes">Visual chart</td><td class="yes">Visual chart (blue = organic, green = boosted)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-h">LinkedIn organic vs paid</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Metric</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Organic vs sponsored follower breakdown</td><td class="zcol excl">Dedicated chart (standard plans)</td><td class="part">Paid vs Organic widget (Premium Analytics only)</td><td class="part">Advanced Analytics</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Sponsored post metrics</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Organic post impressions</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="part">Average impressions only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 06 SENTIMENT & LISTENING -->
+<section class="section alt" id="sentiment">
+  <div class="wrap reveal">
+    <p class="sec-tag">06 — Sentiment analysis &amp; social listening</p>
+    <h2>Built-in intelligence — not a bolt-on</h2>
+    <p class="sec-intro"><strong>Buffer offers no sentiment analysis or social listening capabilities.</strong> Sprout Social places most sentiment features behind its Advanced plan and an additional paid Listening add-on. Hootsuite includes Listening Basics on all plans (keyword columns, hashtag tracking, mention monitoring) but reserves AI-powered Talkwalker intelligence for enterprise tiers. Zoho Social includes real-time sentiment monitoring, brand health tracking, and keyword-level sentiment scoring as standard — no add-on required.</p>
+    <p class="sec-intro">On social listening coverage, Zoho Social monitors FB, X, IG, LinkedIn, GMB, YouTube, Bluesky, and Threads. Sprout's Listening add-on extends to Reddit, Tumblr, and the web. Hootsuite's Talkwalker layer covers 13+ networks plus 30+ news and forum sources at the enterprise tier. Notably, Zoho Social is also the only tool here that monitors <strong>Google Business Reviews and Questions</strong> natively — Hootsuite added GMB review visibility to its Inbox in April 2026, but only as a monitoring/engagement feature, not full analytics.</p>
+
+    <div class="sub-h">Sentiment analysis</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Positive vs negative feedback tracking</td><td class="zcol yes">Included</td><td class="part">Advanced plan only</td><td>Standard plan</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">AI-powered sentiment classification</td><td class="zcol yes">Built-in</td><td class="part">Advanced plan + Listening add-on</td><td class="part">Talkwalker AI (Listening plan)</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Real-time sentiment monitoring</td><td class="zcol yes">Included</td><td class="part">Listening add-on</td><td class="yes">Supported</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Brand health via sentiment</td><td class="zcol yes">Included</td><td class="part">Listening add-on</td><td>Standard plan</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Keyword-level sentiment scoring</td><td class="zcol yes">Included</td><td class="part">Listening add-on</td><td>Listening Basics (all plans)</td><td class="no">Not available</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-h">Social listening &amp; competitor analysis</div>
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Real-time brand mention monitoring</td><td class="zcol yes">Included</td><td class="part">Paid add-on</td><td>Listening Basics (all plans)</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Keyword &amp; hashtag tracking</td><td class="zcol yes">Included</td><td class="part">Listening add-on</td><td>Listening Basics</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Competitor profile monitoring</td><td class="zcol yes">Included</td><td>Professional &amp; Advanced plans</td><td>Up to 5 (Standard) / 20 (Advanced)</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Competitor mention tracking</td><td class="zcol yes">Included</td><td class="part">Listening add-on</td><td class="yes">Supported</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Google Business Reviews</td><td class="zcol excl">Yes — native monitoring</td><td class="no">Not supported</td><td class="part">April 2026 (Inbox only; filter by star rating)</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Engage directly from Monitor tab</td><td class="zcol yes">Supported</td><td>Smart Inbox</td><td>Unified inbox</td><td class="no">Not available</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 07 UTM & BEST TIME -->
+<section class="section" id="utm">
+  <div class="wrap reveal">
+    <p class="sec-tag">07 — UTM tracking &amp; best time to post</p>
+    <h2>Close the loop from post to conversion</h2>
+    <p class="sec-intro">UTM tagging is available across all four tools on paid plans. The distinction: <strong>Zoho Social includes custom UTM parameters even on lower-tier plans</strong>, while Buffer and Sprout Social restrict them to paid tiers. Zoho's UTM support spans all connected platforms; Buffer applies it to a defined subset only — Facebook, X, LinkedIn, YouTube Shorts, GMB, Bluesky, TikTok, and Threads.</p>
+
+    <div class="kv-grid">
+      <div class="kv"><div class="k">Zoho Social — UTM availability</div><div class="v good">Premium plan (custom UTM on lower plans)</div></div>
+      <div class="kv"><div class="k">Buffer — UTM availability</div><div class="v bad">Paid plans only</div></div>
+      <div class="kv"><div class="k">Sprout Social — UTM availability</div><div class="v bad">Professional plan and above</div></div>
+      <div class="kv"><div class="k">Hootsuite — UTM availability</div><div class="v bad">Professional plan and above</div></div>
+    </div>
+
+    <p class="sec-intro">On best-time-to-post recommendations, Zoho Social's <strong>SmartQ</strong> provides data-driven publishing time recommendations across all supported networks. Hootsuite similarly covers all platforms (IG, FB, X, LinkedIn, TikTok, YouTube, Pinterest) and falls back to aggregated research data when account-level data is insufficient. Sprout Social's Optimal Send Times covers the same breadth but requires Professional+ and sufficient historical engagement data. Buffer's best-time feature is the most limited — Instagram only, for professional accounts with 100+ followers and at least 10 posts in the past 7 days.</p>
+
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:22%">Network</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Facebook</td><td class="zcol yes">Yes (Premium, Agency+)</td><td class="part">Professional &amp; Advanced only</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><td class="feat">Instagram</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="part">Professional accounts only</td></tr>
+          <tr><td class="feat">LinkedIn</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><td class="feat">X (Twitter)</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><td class="feat">TikTok, Pinterest, YouTube</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><td class="feat">Data source</td><td class="zcol">Audience engagement history (SmartQ)</td><td>Historical engagement (Optimal Send Times)</td><td>Last 30 days; falls back to aggregated research data</td><td class="part">IG only — 100+ followers, 10+ posts, 7-day data window required</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 08 REPORTS & EXPORT -->
+<section class="section alt" id="reports">
+  <div class="wrap reveal">
+    <p class="sec-tag">08 — Reports, exports &amp; cross-channel view</p>
+    <h2>Reports built for sharing — not just dashboards</h2>
+    <p class="sec-intro">All four tools export in PDF, CSV, and image format. The differences are in automation, customization, and cross-channel scope. Zoho Social includes scheduled report delivery (daily/weekly/monthly) on Professional and Premium plans, agency-branded white-label reports, and a drag-and-drop custom report builder. <strong>Buffer has none of these</strong> — no scheduled delivery, no white-labeling on entry-tier paid plans, and no automated cross-channel reporting. Sprout Social's custom report builder (My Reports) requires a Premium Analytics add-on; Hootsuite's full builder requires the Team plan.</p>
+    <p class="sec-intro">Custom date ranges in Zoho Social depend on plan tier: 15 days for Free/Standard, 3 months for Professional, and 1 year for Premium and Agency plans. Sprout and Hootsuite offer flexible date ranges on paid plans. Buffer restricts free users to preset ranges only (Last 7/30 days, Month to Date).</p>
+
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Export formats</td><td class="zcol">PDF, CSV, image</td><td>PDF, CSV, image</td><td>PDF, CSV, image</td><td>PDF, CSV, image</td></tr>
+          <tr><td class="feat">Scheduled / automated delivery</td><td class="zcol yes">Yes (Professional &amp; Premium)</td><td class="part">Advanced plan only; weekly or monthly</td><td class="part">Team plan+; not available for post performance metrics</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Agency-branded / white-label reports</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="part">Team plan only</td></tr>
+          <tr><td class="feat">Custom report builder</td><td class="zcol yes">Drag-and-drop (all paid plans)</td><td class="part">My Reports — Premium Analytics add-on required</td><td class="part">Metrics-library builder — Team plan and above</td><td class="part">Add charts via + button</td></tr>
+          <tr><td class="feat">Cross-channel custom report</td><td class="zcol yes">Yes (Professional &amp; Premium)</td><td class="part">Premium Analytics add-on</td><td class="part">Team plan and above</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Automated cross-channel delivery</td><td class="zcol yes">Daily / weekly / monthly</td><td class="part">Advanced plan; weekly or monthly</td><td class="part">Team plan and above</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Custom date range in reports</td><td class="zcol part">15 days (Free/Standard) → 3 months (Pro) → 1 year (Premium+)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="part">Paid only; free = presets only</td></tr>
+          <tr><td class="feat">Available on free plan</td><td class="zcol part">Basic analytics dashboard only</td><td class="no">No free plan</td><td class="no">No free plan</td><td class="no">Paid only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 09 FREE PLAN -->
+<section class="section" id="free-plan">
+  <div class="wrap reveal">
+    <p class="sec-tag">09 — Analytics on the free plan</p>
+    <h2>Real analytics before you pay a cent</h2>
+    <p class="sec-intro">Sprout Social and Hootsuite have no permanent free plan — only 30-day trials, after which analytics access disappears unless you subscribe. Both Zoho Social and Buffer offer permanent free plans, but their scope differs significantly. <strong>Zoho Social's free plan includes actual post metrics</strong> for published posts. Buffer's free equivalent is limited to a "Sent" tab showing likes, comments, and impressions for posts scheduled through Buffer — it's not a full analytics view.</p>
+    <p class="sec-intro">Audience demographics and custom reports are unavailable on the free plan of any tool in this comparison. For teams that want to fully evaluate analytics before committing, trial lengths are: Zoho Social (15 days), Buffer (14 days), Sprout Social (30 days), Hootsuite (30 days).</p>
+
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:26%">Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Permanent free plan</td><td class="zcol yes">Yes</td><td class="no">No — 30-day trial only</td><td class="no">No — 30-day trial only</td><td class="yes">Yes</td></tr>
+          <tr><td class="feat">Basic post metrics on free</td><td class="zcol yes">Yes — post statistics for published posts</td><td class="no">Paid plans only</td><td class="no">Paid plans only</td><td class="part">Sent tab only (likes, comments, impressions)</td></tr>
+          <tr><td class="feat">Full Analyze / analytics dashboard</td><td class="zcol part">Standard plan and above</td><td class="no">No free plan</td><td class="no">No free plan</td><td class="no">Paid only</td></tr>
+          <tr><td class="feat">Audience demographics on free</td><td class="zcol no">Not on free</td><td class="no">Not on free</td><td class="no">Not on free</td><td class="no">Not on free</td></tr>
+          <tr><td class="feat">Custom reports on free</td><td class="zcol no">Not on free</td><td class="no">Not on free</td><td class="no">Not on free</td><td class="no">Not on free</td></tr>
+          <tr><td class="feat">Free trial for full analytics</td><td class="zcol">15 days</td><td>30 days</td><td>30 days</td><td>14 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 10 CRM -->
+<section class="section alt" id="crm">
+  <div class="wrap reveal">
+    <p class="sec-tag">10 — CRM &amp; helpdesk integration</p>
+    <h2>From social interaction to sales pipeline</h2>
+    <p class="sec-intro">Zoho Social's CRM integration is native — connecting directly to Zoho CRM (Premium, Agency, and Agency Plus plans) and Zoho Desk. You can create leads manually or automatically from social interactions including likes, mentions, comments, messages, and new followers; enrich CRM contacts with social profile data; and convert social posts directly into support tickets — all within the same ecosystem.</p>
+    <p class="sec-intro">Sprout Social integrates with Salesforce (preferred partner), HubSpot, Zendesk, and Microsoft Dynamics. Hootsuite connects with Salesforce and HubSpot. Both require a third-party CRM subscription and integration setup. <strong>Buffer has no CRM integration.</strong></p>
+
+    <div class="t-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:24%">Feature</th><th class="zh">Zoho Social</th><th>Sprout Social</th><th>Hootsuite</th><th>Buffer</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="feat">Native CRM integration</td><td class="zcol yes">Zoho CRM (Premium &amp; Agency plans)</td><td class="part">Via Salesforce (preferred partner)</td><td class="part">Via Salesforce / HubSpot</td><td class="no">None</td></tr>
+          <tr><td class="feat">Create leads from social interactions</td><td class="zcol yes">Manual + automatic (likes, mentions, comments, messages, followers)</td><td class="yes">Via Salesforce</td><td class="part">Via Salesforce / HubSpot</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Enrich CRM contacts with social data</td><td class="zcol yes">Yes</td><td>Zendesk + Salesforce Service Cloud</td><td class="part">Via Zendesk app</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Convert social posts to support tickets</td><td class="zcol yes">Yes (Zoho Desk)</td><td class="yes">Yes (Salesforce)</td><td class="part">Via Salesforce</td><td class="no">Not available</td></tr>
+          <tr><td class="feat">Google Analytics / UTM-based tracking</td><td class="zcol yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band" id="cta">
+  <div class="wrap">
+    <h2>See your social analytics in real time</h2>
+    <p>Start a free trial of Zoho Social and explore analytics that go further — across more networks, deeper metrics, and without the add-on fees.</p>
+    <a href="#" class="btn-white">Start your 15-day free trial</a>
+  </div>
+</section>
+
+<footer class="site">
+  Comparison based on publicly documented features as of 2026. Feature availability may vary — verify current details on each provider's website before publishing.
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
